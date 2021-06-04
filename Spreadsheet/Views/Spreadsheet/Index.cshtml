@@ -1,0 +1,75 @@
+﻿@using Spreadsheet.ViewModels;
+
+
+@model IndexViewModel
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<a class="btn btn-info btn-block" asp-action="AddEditSheet">New Sheet</a>
+
+<form asp-action="Index"
+     asp-route-sheetName="@ViewData["sheetName"]"
+     method="get" class="form-horizontal" role="form">
+    <!-- Input and Submit elements -->
+    <input name="sheetName"  value="Find your sheet"  autocomplete="off">
+    <button class="btn btn-secondary">Search</button>
+</form>
+
+    <div>
+
+        @*all*@
+        <div style="float:left; width:50%;">
+            <h1>My Sheets:</h1>
+            <ul class="list-group">
+                @foreach (var sheet in Model.Sheets)
+                {
+                    <li class="list-group-item">
+                        <h3 class="text">@sheet.Name</h3>
+                        <a class="btn btn-info" asp-action="AddEditSheet" asp-route-sheetID="@sheet.ID">Edit</a>
+
+                        <form class="d-inline" method="post">
+                            <input asp-for="@Model.UserNameToInv"  autocomplete="off"/>
+                            <button class="btn btn-success" type="submit" asp-action="InviteUser" asp-route-sheetID="@sheet.ID" >Invite User</button>
+                        </form>
+
+                        <a class="btn btn-dark" asp-action="AddSheetToFavorite" asp-route-sheetID="@sheet.ID">Add to favorites</a>
+                        <a class="btn btn-danger" asp-action="DeleteSheet" asp-route-sheetID="@sheet.ID" onclick="return confirm('Are you sure you want delete it?')">Delete</a>
+
+
+                    </li>
+                }
+
+            </ul>
+
+        </div>
+
+        @*favorites*@
+        <div style="float:left;  width:50%;">
+            <h1>Favorites:</h1>
+            <ul class="list-group">
+                @foreach (var sheet in Model.SheetsFavorite)
+                {
+                    <li class="list-group-item">
+                        <h3 class="text">@sheet.Name</h3>
+                        <a class="btn btn-info" asp-action="AddEditSheet" asp-route-sheetID="@sheet.ID">Edit</a>
+
+                        <form class="d-inline" method="post">
+                            <input asp-for="@Model.UserNameToInv"  autocomplete="off" />
+                            <button class="btn btn-success" type="submit" asp-action="InviteUser" asp-route-sheetID="@sheet.ID">Invite User</button>
+                        </form>
+
+                        <a class="btn btn-dark" asp-action="RemoveFromFavorites" asp-route-sheetId="@sheet.ID">Remove from favorites</a>
+                        <a class="btn btn-danger" asp-action="DeleteSheet" asp-route-sheetID="@sheet.ID" onclick="return confirm('Are you sure you want delete it?')">Delete</a>
+
+
+                    </li>
+                }
+
+            </ul>
+        </div>
+        <br style="clear:both;" />
+    </div>

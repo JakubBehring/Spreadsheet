@@ -1,0 +1,27 @@
+﻿@using Spreadsheet.ViewModels;
+
+@{
+    ViewData["Title"] = "AllSheets";
+}
+
+<div>
+    <form asp-action="AllSheets"
+          asp-route-sheetName="@ViewData["sheetName"]"
+          method="get" class="form-horizontal" role="form">
+        
+        <input name="sheetName" value="Find your sheet"  autocomplete="off">
+        <button class="btn btn-secondary">Search</button>
+    </form>
+    <h1>All Sheets:</h1>
+    <ul class="list-group">
+        @foreach (var sheet in Model.Sheets)
+        {
+            <li class="list-group-item">
+                <h3 class="text">@sheet.Name</h3>
+                <a class="btn btn-info" asp-action="AddEditSheet" asp-route-sheetID="@sheet.ID">Inspect</a>
+            </li>
+        }
+
+    </ul>
+
+</div>

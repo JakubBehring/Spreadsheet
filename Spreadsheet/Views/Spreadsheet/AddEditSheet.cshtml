@@ -1,0 +1,116 @@
+﻿@using Spreadsheet.ViewModels;
+@using Microsoft.AspNetCore.Identity
+
+@model AddSheetViewModel
+
+@{
+    ViewData["Title"] = "add, edit SpreadSheet";
+
+}
+@inject SignInManager<UserApplication> SignInManager
+
+<link rel="stylesheet" href="~/css/StyleSheet.css" />
+<div>
+    <div style="background-color:seagreen;">
+
+        @if (Model.userOwnsSheet)
+        {
+            <form class="form-inline" method="post">
+                <input class="form-text" value="@Model.SheetName" asp-for="@Model.SheetName" />
+                <button class="btn btn-dark" type="submit" asp-action="UpdateName" asp-route-sheetID="@Model.SheetID" autocomplete="off">Change Name</button>
+            </form>
+            <div class="list-inline">
+                <a class="btn btn-danger" asp-action="ClearSheet" asp-route-sheetID="@Model.SheetID" onclick="return confirm('Are you sure you want clear this sheet?')">Clear sheet</a>
+                <a class="btn btn-info" asp-action="AllSheets">All Sheets</a>
+                <a class="btn btn-info" asp-action="Index"> My Sheets</a>
+            </div>
+        }
+        else
+        {
+            <form class="form-inline" method="post">
+                <input class="form-text" value="@Model.SheetName" asp-for="@Model.SheetName" disabled />
+                <button class="btn btn-dark" type="submit" asp-action="UpdateName" asp-route-sheetID="@Model.SheetID" disabled>Change Name</button>
+            </form>
+            <div class="list-inline">
+                <a class="btn btn-danger">Clear Sheet</a>
+                <a class="btn btn-info" asp-action="AllSheets">Back To All Aheets</a>
+            </div>
+        }
+    </div>
+    <div>
+        <table cellspacing="0" style="border-spacing: 0;">
+            @for (var i = 1; i <= 20; i++)
+            {
+                <thead>
+                    <tr>
+                        @if (i == 1)
+                                {
+                            <th> </th>
+                            @for (int j = 0; j < 26; j++)
+                            {
+                                char a = 'A';
+                                <th>@Convert.ToChar(a + j)</th>
+                            }
+
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @for (int j = 1; j <= 26; j++)
+                        {
+                            if (j == 1)
+                            {
+                                <td>
+                                    @(i)
+                                </td>
+                            }
+                            <td>
+
+                                <form method="post" asp-controller="Spreadsheet" asp-action="Check" asp-route-sheetID="@Model.SheetID">
+
+
+                                    @{Model.sheetValue.X = j; Model.sheetValue.Y = i;}
+                                    @Html.HiddenFor(m => m.sheetValue.X)
+                                    @Html.HiddenFor(m => m.sheetValue.Y)
+
+
+
+                                    @if (Model.SheetValues.FirstOrDefault(v => v.X == j && v.Y == i) != null)
+                                    {
+                                        Model.SheetValueID = Model.SheetValues.FirstOrDefault(v => v.X == j && v.Y == i).ID;
+
+                                        @Html.HiddenFor(m => m.SheetValueID)
+
+                                        if (Model.userOwnsSheet)
+                                        {
+                                            <input type="text" value="@Model.SheetValues.FirstOrDefault(v => v.X == j && v.Y == i).Value " asp-for="@Model.sheetValue.Value" autocomplete="off" style="background-color:lightgreen" />
+                                        }
+                                        else
+                                        {
+                                            <input type="text" value="@Model.SheetValues.FirstOrDefault(v => v.X == j && v.Y == i).Value " asp-for="@Model.sheetValue.Value" disabled />
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (Model.userOwnsSheet)
+                                        {
+                                            <input type="text" value="" asp-for="@Model.sheetValue.Value" autocomplete="off" />
+                                        }
+                                        else
+                                        {
+                                            <input type="text" value="" asp-for="@Model.sheetValue.Value" disabled />
+                                        }
+                                    }
+
+                                </form>
+
+                            </td>
+                        }
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+
+</div>
