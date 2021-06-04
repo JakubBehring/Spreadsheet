@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\PWI\\SpreadSheet\\Spreadsheet\\Spreadsheet.csproj": {}
+    "G:\\PWI\\Spreadsheet\\Spreadsheet\\Spreadsheet.csproj": {}
   },
   "projects": {
-    "G:\\PWI\\SpreadSheet\\Spreadsheet\\Spreadsheet.csproj": {
+    "G:\\PWI\\Spreadsheet\\Spreadsheet\\Spreadsheet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\PWI\\SpreadSheet\\Spreadsheet\\Spreadsheet.csproj",
+        "projectUniqueName": "G:\\PWI\\Spreadsheet\\Spreadsheet\\Spreadsheet.csproj",
         "projectName": "Spreadsheet",
-        "projectPath": "G:\\PWI\\SpreadSheet\\Spreadsheet\\Spreadsheet.csproj",
+        "projectPath": "G:\\PWI\\Spreadsheet\\Spreadsheet\\Spreadsheet.csproj",
         "packagesPath": "C:\\Users\\jakub\\.nuget\\packages\\",
-        "outputPath": "G:\\PWI\\SpreadSheet\\Spreadsheet\\obj\\",
+        "outputPath": "G:\\PWI\\Spreadsheet\\Spreadsheet\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
